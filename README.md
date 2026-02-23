@@ -1,25 +1,19 @@
-# 🛡️ Network-AutoScan (Bash Script)
+# 🛡️ Network-AutoScan v2.0 (Vulnerability Scanner)
 
-Script automatizado para execução de scans de rede utilizando o Nmap. Projetado para agilizar a fase de reconhecimento em auditorias de segurança.
+Script avançado em Bash para reconhecimento de rede e detecção automática de vulnerabilidades utilizando Nmap e scripts NSE.
 
-### 🚀 Funcionalidades
-* **Interatividade:** Solicita o IP/Host do alvo dinamicamente.
-* **Automação:** Executa scans de versão (-sV) e scripts padrão (-sC).
-* **Organização:** Cria automaticamente uma pasta `resultados/` e salva logs com o nome do alvo.
+### 🚀 Novas Funcionalidades
+* **Detecção de CVEs:** Utiliza a engine `--script vuln` para identificar falhas conhecidas.
+* **Banner Grabbing:** Identifica versões exatas de serviços para análise de exploits.
+* **Output Organizado:** Separa o scan de serviços do scan de vulnerabilidades.
 
 ### 🛠️ Como usar
-1. Dê permissão de execução:
-   ```bash
-   chmod +x autoscan.sh
-   ```
-2. Execute o script:
-   ```bash
-   ./autoscan.sh
-   ```
+```bash
+./autoscan.sh
+```
 
-### 📋 Requisitos
-* Linux (Kali, Ubuntu, etc)
-* Nmap instalado
+### ⚠️ Aviso Legal
+Este script foi desenvolvido para fins educacionais e auditorias autorizadas. O uso em redes sem permissão é ilegal.
 
 ---
 **Desenvolvido por: Lukas (TW-Lock)**

@@ -1,23 +1,31 @@
-#!/bin/bash
+#!/bin/basho
 
-# --- Cores para o Terminal ---
+# --- Cores ---
 VERDE='\033[0;32m'
+AMARELO='\033[1;33m'
 AZUL='\033[0;34m'
-NC='\033[0m' # Sem cor
+VERMELHO='\033[0;31m'
+NC='\033[0m'
 
 echo -e "${AZUL}=========================================${NC}"
-echo -e "${VERDE}    FERRAMENTA DE SCAN AUTOMATIZADO      ${NC}"
+echo -e "${VERMELHO}    AUTO-SCANNER DE VULNERABILIDADES     ${NC}"
 echo -e "${AZUL}=========================================${NC}"
 
-# 1. Pedir o IP do alvo
 echo -n "Digite o IP ou Host do alvo: "
 read ALVO
 
-# 2. Criar pasta de resultados se não existir
 mkdir -p resultados
 
-# 3. Rodar o Scan
-echo -e "\n${AZUL}[*] Iniciando Scan no alvo: $ALVO...${NC}"
-nmap -sV -sC -Pn $ALVO -oN resultados/scan_$ALVO.txt
+echo -e "\n${AMARELO}[*] 1. Iniciando Reconhecimento de Serviços...${NC}"
+# Scan rápido para ver o que está aberto
+nmap -sV $ALVO -oN resultados/servicos_$ALVO.txt
 
-echo -e "\n${VERDE}[+] Scan finalizado! Resultado salvo em: resultados/scan_$ALVO.txt${NC}"
+echo -e "\n${VERMELHO}[!] 2. Buscando Vulnerabilidades (CVEs)...${NC}"
+echo -e "${AMARELO}Isso pode demorar alguns minutos dependendo do alvo...${NC}"
+
+# O segredo: --script vuln busca por falhas conhecidas
+nmap -sV --script vuln $ALVO -oN resultados/VULNS_$ALVO.txt
+
+echo -e "\n${VERDE}[+] Auditoria completa!${NC}"
+echo -e "Logs salvos na pasta 'resultados/':"
+ls resultados/ | grep $ALVO
